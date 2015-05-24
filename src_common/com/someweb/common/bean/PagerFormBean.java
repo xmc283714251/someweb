@@ -1,5 +1,10 @@
 package com.someweb.common.bean;
 
+/**
+ * 分页标签数据封装对象
+ * @author mc
+ *
+ */
 public class PagerFormBean extends BaseBean
 {
 
