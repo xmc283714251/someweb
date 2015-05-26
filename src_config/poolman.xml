@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="gb2312"?>
+<poolman>
+	<management-mode>local</management-mode>
+	
+	<datasource>
+		<dbname>someweb</dbname>
+		<loadmetadata>false</loadmetadata>
+		<jndiName>bspf_datasource_jndiname</jndiName>
+		<driver>com.mysql.jdbc.Driver</driver>
+		 
+		<url>jdbc:mysql://localhost:3306/someweb?characterEncoding=utf8</url> 
+		<username>root</username>
+		<password></password>
+		  
+		<txIsolationLevel>READ_COMMITTED</txIsolationLevel>
+		<nativeResults>true</nativeResults>
+		<poolPreparedStatements>false</poolPreparedStatements>
+		<initialConnections>5</initialConnections>
+		<minimumSize>5</minimumSize>
+		<maximumSize>5</maximumSize>
+		<maximumSoft>false</maximumSoft>
+		<removeAbandoned>true</removeAbandoned>
+		<userTimeout>3</userTimeout>
+		<logAbandoned>true</logAbandoned>
+		<readOnly>true</readOnly>
+		<skimmerFrequency>10</skimmerFrequency>
+		<connectionTimeout>3</connectionTimeout>
+		<shrinkBy>5</shrinkBy>
+		<testWhileidle>true</testWhileidle>
+		<keygenerate>auto</keygenerate>
+		<maxWait>60</maxWait>
+		<validationQuery>select 1 from dual</validationQuery>
+		<autoprimarykey>true</autoprimarykey>
+		<showsql>true</showsql>
+	</datasource>
+	
+</poolman>

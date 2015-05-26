@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 
 import com.frameworkset.common.poolman.DBUtil;
 import com.frameworkset.common.poolman.SQLExecutor;
-import com.someweb.common.bean.LoginInfo;
 import com.someweb.common.bean.SystemDictionaryBean;
 import com.someweb.common.bean.SystemParameterBean;
 import com.someweb.common.constant.CommonConstant;
@@ -21,6 +21,7 @@ import com.someweb.common.constant.CommonConstant;
  */
 public class DictionaryCacheHellper
 {
+	private static Logger log = Logger.getLogger(DictionaryCacheHellper.class);
 	/**
 	 * 系统参数缓存
 	 */
@@ -39,9 +40,9 @@ public class DictionaryCacheHellper
 	{
 		parameterMap.clear();
 		dictionaryMap.clear();
-		
+		//初始化系统参数
 		initParameter();
-		
+		//初始化字典
 		initDictionary();
 		 
 	}
@@ -53,7 +54,8 @@ public class DictionaryCacheHellper
 	 */
 	public static void initParameter()
 	{
-		String sql = "select id, prokey, provalue,descr from t_common_parameter";
+		log.info("系统正在初始化系统参数....");
+		String sql = "select id, prokey, provalue,descr from td_common_parameter";
 		try
 		{
 			List<SystemParameterBean> list = SQLExecutor.queryListWithDBName(SystemParameterBean.class, CommonConstant.DBNAME_COMMON, sql);
@@ -69,6 +71,7 @@ public class DictionaryCacheHellper
 		{
 			e.printStackTrace();
 		}
+		log.info("系统初始化系统参数结束.");
 	}
 	
 	/**
@@ -76,10 +79,11 @@ public class DictionaryCacheHellper
 	 */
 	public static void initDictionary()
 	{
+		log.info("系统正在初始化字典...");
 		try
 		{
 			//查询字典类别
-			String queryzdlbsql = "select distinct zdlb from t_common_dictionary t where isyx='1'";
+			String queryzdlbsql = "select distinct zdlb from td_common_dictionary t where isvalid='1'";
 			DBUtil util = new DBUtil();
 			util.executeSelect(CommonConstant.DBNAME_COMMON, queryzdlbsql);
 			for (int i=0;i<util.size();i++)
@@ -88,7 +92,7 @@ public class DictionaryCacheHellper
 			}
 			
 			// 初始化字典
-			String querysql = "select id, zdlb, zdmc, dm, mc, parent_dm, jc, isyx, sn from t_common_dictionary where isyx='1' order by sn,dm";
+			String querysql = "select id, zdlb, zdmc, dm, mc, parent_dm, jc, isvalid, sn from td_common_dictionary where isvalid='1' order by sn,dm";
 			List<SystemDictionaryBean> beanList = SQLExecutor.queryListWithDBName(SystemDictionaryBean.class, CommonConstant.DBNAME_COMMON, querysql);
 			
 			if (ValidateHelper.isNotEmptyCollection(beanList))
@@ -104,6 +108,7 @@ public class DictionaryCacheHellper
 		{
 			e.printStackTrace();
 		}
+		log.info("系统初始化字典结束.");
 	}
 	 
 	/**
@@ -187,150 +192,6 @@ public class DictionaryCacheHellper
 			}
 		}
 		return resultList;
-	}
-	
-	/**
-	 * 通过级别获取字典数据
-	 * @param zdlb 字典类别
-	 * @param leve 级别层级
-	 * @return
-	 * @date 2013-8-7 下午04:02:46
-	 */
-	public static List<SystemDictionaryBean> getSystemDictionaryBeanListByLevel(String zdlb, String leve)
-	{
-		List<SystemDictionaryBean> list = dictionaryMap.get(zdlb);
-		List<SystemDictionaryBean> resultList = new ArrayList<SystemDictionaryBean>();
-		if (ValidateHelper.isNotEmptyCollection(list))
-		{
-			for (SystemDictionaryBean bean : list)
-			{
-				if (leve.equals(bean.getLeve()))
-				{
-					resultList.add(bean);
-				}
-			}
-		}
-		return resultList;
-	}
-	
-	
-	/**
-	 * 初始化自定义字典
-	 */
-	public static void initDmDictionary()
-	{
-		try
-		{
-			//查询字典类别
-			String queryzdlbsql = "select distinct zdlb from t_common_dm_dictionary t where isyx='1'";
-			DBUtil util = new DBUtil();
-			util.executeSelect(CommonConstant.DBNAME_COMMON, queryzdlbsql);
-			for (int i=0;i<util.size();i++)
-			{
-				dictionaryMap.put(util.getString(i, "zdlb"), new ArrayList<SystemDictionaryBean>());
-			}
-			
-			// 初始化字典
-			String querysql = "select id, zdlb, zdmc, dm, mc, parent_dm, jc, isyx, sn from t_common_dm_dictionary where isyx='1' order by sn,dm";
-			List<SystemDictionaryBean> beanList = SQLExecutor.queryListWithDBName(SystemDictionaryBean.class, CommonConstant.DBNAME_COMMON, querysql);
-			
-			if (ValidateHelper.isNotEmptyCollection(beanList))
-			{
-				for (SystemDictionaryBean bean : beanList)
-				{
-					dictionaryMap.get(bean.getZdlb()).add(bean);
-				}
-			}
-			
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-	
-	 
-	
-	/**
-	 * 查询派出所通过县区公安机关机构代码
-	 * @param parentcode 市级机构代码
-	 * @return
-	 * @date 2013-10-24 上午09:17:17
-	 */
-	public static List<SystemDictionaryBean> queryPcsGajgjgdws(String parentcode)
-	{
-		List<SystemDictionaryBean> list = null;
-		try
-		{
-			String sql = "select orgid as id,orgcode as dm,orgname as mc ,parent_code as parent_dm,orgjc as jc,'4' as leve  " +
-					"from v_common_organization t  " +
-					"where t.PARENT_CODE=? " +
-					"and substr(t.orgcode,9,4)='0000'  " +
-					"and ispcs='1' " +
-					"and isyx='1' " +
-					"order by t.orgcode";
-			list = SQLExecutor.queryListWithDBName(SystemDictionaryBean.class, CommonConstant.DBNAME_COMMON, sql, parentcode);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		return list;
-	}
-	
-	/**
-	 * 查询可访问派出所通过县区公安机关机构代码
-	 * @param parentcode 市级机构代码
-	 * @return
-	 * @date 2013-10-24 上午09:17:17
-	 */
-	public static List<SystemDictionaryBean> queryKfwPcsGajgjgdws(String parentcode)
-	{
-		List<SystemDictionaryBean> list = null;
-		try
-		{
-			LoginInfo login = ActionContextHelper.getLoginInfo();
-			String userId = login.getUserid();
-			
-			String sql = "select orgid as id,orgcode as dm,orgname as mc ,parent_code as parent_dm,orgjc as jc,'4' as leve  " +
-					"from v_common_organization t  " +
-					"where t.PARENT_CODE=? " +
-					"and substr(t.orgcode,9,4)='0000'  " +
-					"and ispcs='1' " +
-					"and isyx='1' " +
-					" and orgid in (select org_id from cs_jz_ptgl.v_tb_res_org_user_write where user_id = '" + userId + "' ) " +
-					"order by t.orgcode";
-			list = SQLExecutor.queryListWithDBName(SystemDictionaryBean.class, CommonConstant.DBNAME_COMMON, sql, parentcode);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		return list;
-	}
-	
-	/**
-	 * 查询派出所警务室
-	 * @param parentcode 派出所代码
-	 * @return
-	 * @date 2013-10-24 上午09:16:54
-	 */
-	public static List<SystemDictionaryBean> queryJwsGajgjgdws(String parentcode)
-	{
-		List<SystemDictionaryBean> list = null;
-		try
-		{
-			String sql = "select orgid as id,orgcode as dm,orgname as mc ,parent_code as parent_dm,orgjc as jc,'5' as leve  " +
-					"from v_common_organization t  " +
-					" where t.PARENT_CODE=substr(?,1,8)||'3100' " +
-					"order by t.orgcode";
-			list = SQLExecutor.queryListWithDBName(SystemDictionaryBean.class, CommonConstant.DBNAME_COMMON, sql, parentcode);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		return list;
 	}
 	
 	/**

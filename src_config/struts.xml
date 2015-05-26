@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"  "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.devMode" value="true" />  
+	<constant name="struts.custom.i18n.resources" value="Message" />
+	<constant name="struts.ui.theme" value="simple" />
+	<constant name="struts.action.extension" value="action,do" />
+    <!-- 改变struts2默认为10M的上传文件大小限制  -->
+    <constant name="struts.multipart.maxSize" value="2048000000000"/> 
+    <constant name="struts.multipart.saveDir" value="/temp"/> 
+    
+    <package name="default" namespace="/" extends="struts-default"> 
+    	 <interceptors>
+    		<interceptor name="verificationInterceptor" class="com.someweb.common.interceptor.CheckLoginInterceptor"></interceptor>
+    		
+    		<interceptor-stack name="SomeWebDefaultInterceptorStack">
+    			<interceptor-ref name="verificationInterceptor"/>
+    			<interceptor-ref name="defaultStack"></interceptor-ref>
+    		</interceptor-stack>
+    	</interceptors>
+    	 
+    	<default-interceptor-ref name="SomeWebDefaultInterceptorStack"></default-interceptor-ref>
+    
+    	<global-results>
+			<result name="notlogin" type="redirect">/index.jsp</result>
+		</global-results>
+			
+    	<global-exception-mappings>
+			 <!--  指Action抛出Exception异常时，转入名为exception的结果。 -->
+			<exception-mapping result="input" exception="java.lang.Exception"/>
+		</global-exception-mappings>
+		
+		<action name="download" class="com.someweb.common.action.FileDownLoadAction">  
+            <!-- 设置文件名参数，由页面上传入 -->  
+            <param name="fileName"></param>  
+            <result name="success" type="stream">  
+                <!-- 下载文件类型定义 -->  
+                <param name="contentType">text/plain</param>  
+                <!-- 下载文件处理方法 -->  
+                <param name="contentDisposition">  
+                    attachment;filename="${downloadChineseFileName}"  
+                </param>  
+                <!-- 下载文件输出流定义 -->  
+                <param name="inputName">downloadFile</param>  
+            </result>  
+        </action>  
+		
+		
+		<action name="*" class="com.someweb.common.action.LoginAction" method="{1}">
+			 <result name="loginSuccess" type="redirectAction">index</result>
+			 <result name="loginOut" type="redirect">/index.jsp</result>
+			 <result name="index">/main.jsp</result>
+		</action>
+		 
+	</package>
+   
+</struts>

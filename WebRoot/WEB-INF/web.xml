@@ -20,6 +20,16 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
+	<!-- jsp页面拦截过滤 -->
+	<filter>
+		<filter-name>JspPageFilter</filter-name>
+		<filter-class>com.someweb.common.filter.JspPageFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>JspPageFilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+	
 	<!--  Struts2前端控制器 -->
 	<filter>
 		<filter-name>struts2</filter-name>
@@ -33,10 +43,6 @@
 		<filter-name>struts2</filter-name>
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
-	<filter-mapping>
-		<filter-name>struts2</filter-name>
-		<url-pattern>*.jsp</url-pattern>
-	</filter-mapping>
 
 	<filter>
 		<filter-name>struts-cleanup</filter-name>
@@ -47,12 +53,8 @@
 		<url-pattern>*.action</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
-		<filter-name>struts-cleanup</filter-name>
+		<filter-name>struts2</filter-name>
 		<url-pattern>*.do</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>struts-cleanup</filter-name>
-		<url-pattern>*.jsp</url-pattern>
 	</filter-mapping>
 
 	<!-- 上下文启动监听 -->
@@ -61,23 +63,17 @@
 	</listener>
 
 	<listener>
-		<listener-class>com.chinacreator.common.listener.CPSCommonListener</listener-class>
+		<listener-class>com.someweb.common.listener.CPSCommonListener</listener-class>
 	</listener>
 		
 	<listener>
-		<listener-class>com.chinacreator.common.listener.SessionCounterListener</listener-class>
+		<listener-class>com.someweb.common.listener.SessionCounterListener</listener-class>
 	</listener>
 	
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<!--Spring配置文件位置-->
 		<param-value>WEB-INF/config/application-task.xml</param-value>
-	</context-param>
-	
-	
-	<context-param>
-		<param-name>themePath</param-name>
-		<param-value>/template/default</param-value>
 	</context-param>
 	
 	<!-- 异常信息处理 -->
@@ -100,8 +96,8 @@
 
 	<jsp-config>
 		<taglib>
-			<taglib-uri>/tags/cps</taglib-uri>
-			<taglib-location>/WEB-INF/taglib/cps.tld</taglib-location>
+			<taglib-uri>/someweb-tags</taglib-uri>
+			<taglib-location>/WEB-INF/taglib/some.tld</taglib-location>
 		</taglib>
 	</jsp-config>
 </web-app>

@@ -23,7 +23,7 @@ public class SystemDictionaryBean
 	
 	private String leve;
 	
-	private String isyx;
+	private String isvalid;
 	
 	private String sn;
 
@@ -83,12 +83,14 @@ public class SystemDictionaryBean
 		this.jc = jc;
 	}
 
-	public String getIsyx() {
-		return isyx;
+	public String getIsvalid()
+	{
+		return isvalid;
 	}
 
-	public void setIsyx(String isyx) {
-		this.isyx = isyx;
+	public void setIsvalid(String isvalid)
+	{
+		this.isvalid = isvalid;
 	}
 
 	public String getSn() {

@@ -22,13 +22,9 @@ public class LoginInfo extends BaseBean
 	
 	private String realname;
 	
-	private String realnamepy;
+	private String email;
 	
-	private String moblie;
-	
-	private String telephone;
-	
-	private String sfzh;
+	private String phone;
 	
 	private String isvalid;
 	
@@ -40,7 +36,7 @@ public class LoginInfo extends BaseBean
 	
 	private String orgname;
 	
-	private String parent_code;
+	private String parentcode;
 	
 	private String orgjc;
 
@@ -84,44 +80,24 @@ public class LoginInfo extends BaseBean
 		this.realname = realname;
 	}
 
-	public String getRealnamepy()
+	public String getEmail()
 	{
-		return realnamepy;
+		return email;
 	}
 
-	public void setRealnamepy(String realnamepy)
+	public void setEmail(String email)
 	{
-		this.realnamepy = realnamepy;
+		this.email = email;
 	}
 
-	public String getMoblie()
+	public String getPhone()
 	{
-		return moblie;
+		return phone;
 	}
 
-	public void setMoblie(String moblie)
+	public void setPhone(String phone)
 	{
-		this.moblie = moblie;
-	}
-
-	public String getTelephone()
-	{
-		return telephone;
-	}
-
-	public void setTelephone(String telephone)
-	{
-		this.telephone = telephone;
-	}
-
-	public String getSfzh()
-	{
-		return sfzh;
-	}
-
-	public void setSfzh(String sfzh)
-	{
-		this.sfzh = sfzh;
+		this.phone = phone;
 	}
 
 	public String getIsvalid()
@@ -174,14 +150,14 @@ public class LoginInfo extends BaseBean
 		this.orgname = orgname;
 	}
 
-	public String getParent_code()
+	public String getParentcode()
 	{
-		return parent_code;
+		return parentcode;
 	}
 
-	public void setParent_code(String parent_code)
+	public void setParentcode(String parentcode)
 	{
-		this.parent_code = parent_code;
+		this.parentcode = parentcode;
 	}
 
 	public String getOrgjc()
