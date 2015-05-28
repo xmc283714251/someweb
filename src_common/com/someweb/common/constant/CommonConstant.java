@@ -10,4 +10,7 @@ public final class CommonConstant
 	
 	//当前在线人数
 	public static final String CURRENT_INLINE_NUM = "inlineNum";
+	
+	//验证码字符
+	public static final String VALIDATE_CODE = "code";
 }

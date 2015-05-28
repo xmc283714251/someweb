@@ -1,10 +1,12 @@
 package com.someweb.common.action;
 
+import org.apache.commons.lang.StringUtils;
+
+import com.someweb.common.annotation.Business;
 import com.someweb.common.bean.LoginInfo;
 import com.someweb.common.business.LoginBusiness;
 import com.someweb.common.constant.CommonConstant;
 import com.someweb.common.helper.ActionContextHelper;
-import com.someweb.common.listener.SessionCounterListener;
 
 /**
  * 系统登录Action
@@ -13,7 +15,6 @@ import com.someweb.common.listener.SessionCounterListener;
  */
 public class LoginAction extends BaseAction
 {
-
 	/**
 	 * 
 	 */
@@ -23,6 +24,8 @@ public class LoginAction extends BaseAction
 	
 	private String username;
 	private String password;
+	private String code;
+	private String errorMsg;
 	
 	public LoginAction()
 	{
@@ -34,6 +37,7 @@ public class LoginAction extends BaseAction
 	 * 进入主页
 	 * @return
 	 */
+	@Business(name="index")
 	public String index()
 	{
 		return "index";
@@ -45,15 +49,33 @@ public class LoginAction extends BaseAction
 	 */
 	public String login()
 	{
-		LoginInfo loginInfo = loginBusiness.queryLoginInfoByUserNameAndPassword(username, password);
-		//存放到当前回话中
-		if (loginInfo != null)
+		String sessionCode = (String) session.getAttribute(CommonConstant.VALIDATE_CODE);
+		if (sessionCode.equalsIgnoreCase(code))
 		{
-			ActionContextHelper.setLoginInfo(loginInfo);
-			return "loginSuccess";
+			LoginInfo loginInfo = loginBusiness.queryLoginInfoByUserNameAndPassword(username, password);
+			if (!StringUtils.isEmpty(username) && !StringUtils.isEmpty(password))
+			{
+				//存放到当前回话中
+				if (loginInfo != null)
+				{
+					ActionContextHelper.setLoginInfo(loginInfo);
+					return "loginSuccess";
+				}
+				else
+				{
+					errorMsg = "用户名或密码不正确";
+					return "loginOut";
+				}
+			}
+			else
+			{
+				errorMsg = "用户名或密码不能为空";
+				return "loginOut";
+			}
 		}
 		else
 		{
+			errorMsg = "验证码不正确或不能为空";
 			return "loginOut";
 		}
 	}
@@ -65,8 +87,6 @@ public class LoginAction extends BaseAction
 	public String logout()
 	{
 		session.removeAttribute(CommonConstant.LOGIN_INFO);
-		SessionCounterListener.inlineNum--;
-		session.setAttribute(CommonConstant.CURRENT_INLINE_NUM, SessionCounterListener.inlineNum);
 		return "loginOut";
 	}
 
@@ -89,6 +109,25 @@ public class LoginAction extends BaseAction
 	{
 		this.password = password;
 	}
-	
+
+	public String getCode()
+	{
+		return code;
+	}
+
+	public void setCode(String code)
+	{
+		this.code = code;
+	}
+
+	public String getErrorMsg()
+	{
+		return errorMsg;
+	}
+
+	public void setErrorMsg(String errorMsg)
+	{
+		this.errorMsg = errorMsg;
+	}
 	
 }

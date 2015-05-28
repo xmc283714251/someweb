@@ -76,6 +76,15 @@
 		<param-value>WEB-INF/config/application-task.xml</param-value>
 	</context-param>
 	
+	<servlet>
+		<servlet-name>validateCodeServlet</servlet-name>
+		<servlet-class>com.someweb.common.servlet.ValidateCodeServlet</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>validateCodeServlet</servlet-name>
+		<url-pattern>*.image</url-pattern>
+	</servlet-mapping>
+	
 	<!-- 异常信息处理 -->
 	<error-page>
 		<error-code>500</error-code>

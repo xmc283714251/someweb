@@ -50,7 +50,7 @@
 		
 		<action name="*" class="com.someweb.common.action.LoginAction" method="{1}">
 			 <result name="loginSuccess" type="redirectAction">index</result>
-			 <result name="loginOut" type="redirect">/index.jsp</result>
+			 <result name="loginOut">/index.jsp</result>
 			 <result name="index">/main.jsp</result>
 		</action>
 		 

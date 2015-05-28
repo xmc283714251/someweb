@@ -2,7 +2,6 @@ package com.someweb.common.interceptor;
 
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
-import com.someweb.common.action.LoginAction;
 import com.someweb.common.constant.CommonConstant;
 
 public class CheckLoginInterceptor extends AbstractInterceptor {
@@ -16,14 +15,16 @@ public class CheckLoginInterceptor extends AbstractInterceptor {
 	public String intercept(ActionInvocation invocation) throws Exception
 	{
 		Object loginInfo = invocation.getInvocationContext().getSession().get(CommonConstant.LOGIN_INFO);
-		Object actionObject = invocation.getAction();
-		if (actionObject instanceof LoginAction)
+		if (loginInfo != null)
 		{
 			return invocation.invoke();
 		}
 		else
 		{
-			if (loginInfo != null)
+			String namespace = invocation.getProxy().getNamespace();
+			String actionName = invocation.getInvocationContext().getName();
+			String path = namespace + actionName;
+			if ("/login".equals(path))
 			{
 				return invocation.invoke();
 			}

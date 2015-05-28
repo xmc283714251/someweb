@@ -35,9 +35,10 @@ $(function(){
 				<a class="logo" href="javascript:void(0)">标志</a>
 				<ul class="nav">
 					<li><a href="dwz/index.html" target="_blank">DWZ帮助文档</a></li>
-					<li><a href="login.html">退出</a></li>
+					<li><a href="<c:url value='/logout.do'/>">退出</a></li>
 				</ul>
-				<ul class="themeList" id="themeList">
+				<ul class="themeList" id="themeList" style="color: white;">
+					当前用户：${loginInfo.realname}
 				</ul>
 			</div>
 		

@@ -7,19 +7,27 @@ import com.someweb.common.constant.CommonConstant;
 
 public class SessionCounterListener implements HttpSessionListener
 {
-	public static int inlineNum = 0;
-	
 	@Override
 	public void sessionCreated(HttpSessionEvent event)
 	{
-		inlineNum++;
-		event.getSession().setAttribute(CommonConstant.CURRENT_INLINE_NUM, inlineNum);
+		Object numObject = event.getSession().getAttribute(CommonConstant.CURRENT_INLINE_NUM);
+		if (numObject != null)
+		{
+			int inlineNum = (Integer)numObject;
+			event.getSession().setAttribute(CommonConstant.CURRENT_INLINE_NUM, inlineNum++);
+		}
+		else
+		{
+			event.getSession().setAttribute(CommonConstant.CURRENT_INLINE_NUM, 1);
+		}
 	}
 	
 	@Override
 	public void sessionDestroyed(HttpSessionEvent event)
 	{
-		inlineNum--;
+		Object numObject = event.getSession().getAttribute(CommonConstant.CURRENT_INLINE_NUM);
+		int inlineNum = (Integer)numObject;
+		event.getSession().setAttribute(CommonConstant.CURRENT_INLINE_NUM, inlineNum -1);
 	}
 	
 }
