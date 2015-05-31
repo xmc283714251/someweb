@@ -294,7 +294,6 @@ var navTab = {
 		var op = $.extend({data:{}, navTabId:"", callback:null}, options);
 		var $tab = op.navTabId ? this._getTab(op.navTabId) : this._getTabs().eq(this._currentIndex);
 		var $panel =  op.navTabId ? this._getPanel(op.navTabId) : this._getPanels().eq(this._currentIndex);
-		
 		if ($panel){
 			if (!url) {
 				url = $tab.attr("url");

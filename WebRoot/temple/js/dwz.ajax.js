@@ -199,14 +199,12 @@ function divSearch(form, rel){
  */
 function _getPagerForm($parent, args) {
 	var form = $("#pagerForm", $parent).get(0);
-
 	if (form) {
 		if (args["pageNum"]) form[DWZ.pageInfo.pageNum].value = args["pageNum"];
 		if (args["numPerPage"]) form[DWZ.pageInfo.numPerPage].value = args["numPerPage"];
 		if (args["orderField"]) form[DWZ.pageInfo.orderField].value = args["orderField"];
 		if (args["orderDirection"] && form[DWZ.pageInfo.orderDirection]) form[DWZ.pageInfo.orderDirection].value = args["orderDirection"];
 	}
-	
 	return form;
 }
 
@@ -221,7 +219,6 @@ function _getPagerForm($parent, args) {
 function dwzPageBreak(options){
 	var op = $.extend({ targetType:"navTab", rel:"", data:{pageNum:"", numPerPage:"", orderField:"", orderDirection:""}, callback:null}, options);
 	var $parent = op.targetType == "dialog" ? $.pdialog.getCurrent() : navTab.getCurrentPanel();
-
 	if (op.rel) {
 		var $box = $parent.find("#" + op.rel);
 		var form = _getPagerForm($box, op.data);
@@ -232,10 +229,10 @@ function dwzPageBreak(options){
 				}
 			});
 		}
+		 
 	} else {
 		var form = _getPagerForm($parent, op.data);
 		var params = $(form).serializeArray();
-		
 		if (op.targetType == "dialog") {
 			if (form) $.pdialog.reload($(form).attr("action"), {data: params, callback: op.callback});
 		} else {
@@ -315,8 +312,8 @@ function uploadifyError(event, queueId, fileObj, errorObj){
 		+ fileObj.name + "\nerrorObj.type:" + errorObj.type + "\nerrorObj.info:" + errorObj.info);
 }
 
-
 $.fn.extend({
+	
 	ajaxTodo:function(){
 		return this.each(function(){
 			var $this = $(this);

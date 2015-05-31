@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
+import com.googlecode.jsonplugin.JSONException;
+import com.googlecode.jsonplugin.JSONUtil;
 import com.opensymphony.xwork2.ActionSupport;
 import com.someweb.common.bean.PagerFormBean;
 
@@ -39,16 +41,62 @@ public class BaseAction extends ActionSupport implements ServletRequestAware, Se
 	protected HttpServletResponse response;
 	
 	private PagerFormBean pagerForm;
-
+	
+	private int pageNum = 1;
+	
+	private int numPerPage = 20;
+	
+	private String orderField;
+	
+	private String orderDirection;
+	
+	/**
+	 * 输出文本
+	 * @param object
+	 * @return
+	 */
+	protected String responseWrite(Object object)
+	{
+		try 
+		{
+			String resStr = JSONUtil.serialize(object);
+			this.returnValue(resStr);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	protected void returnValue(String resStr)
+	{
+		try
+		{
+			Object obj = getSession().getServletContext().getAttribute("encoding"); 
+			String encoding = obj != null ? obj.toString() : "UTF-8";
+			response.setCharacterEncoding(encoding);
+			response.setContentType("text/plain;Charset=" + encoding);
+			response.setHeader("Cache-Control", "no-cache");
+			response.getWriter().write(resStr);
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 	
 	public PagerFormBean getPagerForm()
 	{
+		if (pagerForm == null)
+		{
+			pagerForm = new PagerFormBean();
+		}
+		pagerForm.setCurrentPage(pageNum);
+		pagerForm.setPageNum(pageNum);
+		pagerForm.setNumPerPage(numPerPage);
+		pagerForm.setOrderDirection(orderDirection);
+		pagerForm.setOrderField(orderField);
 		return pagerForm;
-	}
-
-	public void setPagerForm(PagerFormBean pagerForm)
-	{
-		this.pagerForm = pagerForm;
 	}
 	
 	public void setServletRequest(HttpServletRequest request) 
@@ -114,6 +162,46 @@ public class BaseAction extends ActionSupport implements ServletRequestAware, Se
 	public void setBusiness(String business)
 	{
 		this.business = business;
+	}
+
+	public int getPageNum()
+	{
+		return pageNum;
+	}
+
+	public void setPageNum(int pageNum)
+	{
+		this.pageNum = pageNum;
+	}
+
+	public int getNumPerPage()
+	{
+		return numPerPage;
+	}
+
+	public void setNumPerPage(int numPerPage)
+	{
+		this.numPerPage = numPerPage;
+	}
+
+	public String getOrderField()
+	{
+		return orderField;
+	}
+
+	public void setOrderField(String orderField)
+	{
+		this.orderField = orderField;
+	}
+
+	public String getOrderDirection()
+	{
+		return orderDirection;
+	}
+
+	public void setOrderDirection(String orderDirection)
+	{
+		this.orderDirection = orderDirection;
 	}
 	
 }

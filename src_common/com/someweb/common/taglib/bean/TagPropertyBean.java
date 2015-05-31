@@ -1,4 +1,4 @@
-package com.someweb.common.tablib.bean;
+package com.someweb.common.taglib.bean;
 
 import java.util.HashMap;
 import java.util.Map;

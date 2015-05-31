@@ -10,6 +10,7 @@
 				first$:"li.j-first", prev$:"li.j-prev", next$:"li.j-next", last$:"li.j-last", nums$:"li.j-num>a", jumpto$:"li.jumpto",
 				pageNumFrag:'<li class="#liClass#"><a href="javascript:;">#pageNum#</a></li>'
 			};
+			
 			return this.each(function(){
 				var $this = $(this);
 				var pc = new Pagination(opts);
@@ -115,6 +116,7 @@
 	$.extend(Pagination.prototype, {
 		targetType:function(){return this.opts.targetType},
 		rel:function(){return this.opts.rel},
+		autoLoad : function(){return this.opts.autoLoad},
 		numPages:function() {
 			return Math.ceil(this.opts.totalCount/this.opts.numPerPage);
 		},

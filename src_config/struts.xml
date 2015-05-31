@@ -56,4 +56,6 @@
 		 
 	</package>
    
+    <include file="struts2/struts2-xtgl.xml"/>
+    <include file="struts2/struts2-test.xml"/>
 </struts>

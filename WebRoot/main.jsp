@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=7" />
 <title>简单实用国产jQuery UI框架 - DWZ富客户端框架(J-UI.com)</title>
-<%@include file="/temple/include.min.js.inc" %>
+<%@include file="/temple/include.inc" %>
 <style type="text/css">
 	#header{height:85px}
 	#leftside, #container, #splitBar, #splitBarProxy{top:90px}
@@ -49,7 +49,7 @@ $(function(){
 					<li><a href="dwz/sidebar_1.html"><span>产品管理</span></a></li>
 					<li><a href="dwz/sidebar_2.html"><span>会员管理</span></a></li>
 					<li><a href="dwz/sidebar_1.html"><span>服务管理</span></a></li>
-					<li><a href="dwz/sidebar_2.html"><span>系统设置</span></a></li>
+					<li><a href="<c:url value='/xtgl/left.do'/>"><span>系统设置</span></a></li>
 				</ul>
 			</div>
 		</div>

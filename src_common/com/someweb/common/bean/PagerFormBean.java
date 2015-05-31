@@ -30,12 +30,17 @@ public class PagerFormBean extends BaseBean
 	/**
 	 * 总条数
 	 */
-	private int totalCount;
+	private int totalCount = 0;
 	
 	/**
 	 * 页标数字多少个
 	 */
-	private int pageNumShown = 10;
+	private int pageNumShown = 0;
+	
+	/**
+	 * 总页数
+	 */
+	private int totalPage;
 	
 	/**
 	 * 排序字段
@@ -55,6 +60,7 @@ public class PagerFormBean extends BaseBean
 	public void setPageNum(int pageNum)
 	{
 		this.pageNum = pageNum;
+		this.currentPage = pageNum;
 	}
 
 	public int getCurrentPage()
@@ -115,6 +121,28 @@ public class PagerFormBean extends BaseBean
 	public void setOrderDirection(String orderDirection)
 	{
 		this.orderDirection = orderDirection;
+	}
+
+	public int getTotalPage()
+	{
+		if (totalCount<=numPerPage)
+		{
+			totalPage = 1;
+		}
+		else if (totalCount%numPerPage == 0)
+		{
+			totalPage = totalCount/numPerPage;
+		}
+		else if (totalCount%numPerPage > 0)
+		{
+			return (totalCount/numPerPage) + 1;
+		}
+		return totalPage;
+	}
+
+	public void setTotalPage(int totalPage)
+	{
+		this.totalPage = totalPage;
 	}
 	
 	

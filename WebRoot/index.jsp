@@ -82,14 +82,14 @@
 						</tr>
 						<tr>
 							<td width="25%">用户名：</td>
-							<td><input type="text" id="username" name="username" size="20" class="login_input" maxlength="20"/></td>
+							<td><input type="text" id="username" value="${username }" name="username" size="20" class="login_input" maxlength="20"/></td>
 						</tr>
 						<tr>
 							<td colspan="2" height="10px">&nbsp;</td>
 						</tr>
 						<tr>
 							<td>密&nbsp;&nbsp;&nbsp;&nbsp;码：</td>
-							<td><input type="password" id="password" name="password" size="20" class="login_input" /></td>
+							<td><input type="password" id="password" value="${password }" name="password" size="20" class="login_input" /></td>
 						</tr>
 						<tr>
 							<td colspan="2" height="10px">&nbsp;</td>

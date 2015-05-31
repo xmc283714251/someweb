@@ -1,10 +1,12 @@
-package com.someweb.common.tablib.tag;
+package com.someweb.common.taglib.tag;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
-import com.someweb.common.tablib.bean.TagPropertyBean;
-import com.someweb.common.tablib.helper.TagTemplateHelper;
+import com.someweb.common.helper.ValidateHelper;
+import com.someweb.common.taglib.bean.TagPropertyBean;
+import com.someweb.common.taglib.helper.TagTemplateHelper;
 
 import freemarker.template.Template;
 
@@ -23,10 +25,17 @@ public abstract class BaseBodyTagSupport extends BodyTagSupport
 	{
 		try
 		{
+			HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
 			bean = new TagPropertyBean();
 			setTagPropertyBean(bean);
-			Template temp = TagTemplateHelper.getTemplate(getStartTempFileName());
-			temp.process(bean.getRoot(), pageContext.getOut());
+			String contextPath = request.getContextPath();
+			bean.getRoot().put("contextPath", contextPath);
+			String startTemplate = getStartTempFileName();
+			if (ValidateHelper.isNotEmptyString(startTemplate))
+			{
+				Template temp = TagTemplateHelper.getTemplate(getStartTempFileName());
+				temp.process(bean.getRoot(), pageContext.getOut());
+			}
 		}
 		catch(Exception e)
 		{
@@ -41,8 +50,12 @@ public abstract class BaseBodyTagSupport extends BodyTagSupport
 	{
 		try
 		{
-			Template temp = TagTemplateHelper.getTemplate(getEndTempFileName());
-			temp.process(bean.getRoot(), pageContext.getOut());
+			String endTemplate = getEndTempFileName();
+			if (ValidateHelper.isNotEmptyString(endTemplate))
+			{
+				Template temp = TagTemplateHelper.getTemplate(endTemplate);
+				temp.process(bean.getRoot(), pageContext.getOut());
+			}
 		}
 		catch(Exception e)
 		{

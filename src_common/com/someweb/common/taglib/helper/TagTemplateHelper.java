@@ -1,4 +1,4 @@
-package com.someweb.common.tablib.helper;
+package com.someweb.common.taglib.helper;
 
 import java.beans.BeanInfo;
 import java.beans.Introspector;
@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 import com.someweb.common.helper.ValidateHelper;
-import com.someweb.common.tablib.bean.TagPropertyBean;
+import com.someweb.common.taglib.bean.TagPropertyBean;
 
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
@@ -17,7 +17,7 @@ import freemarker.template.Template;
 public class TagTemplateHelper
 {
 	
-	private static final String temp_dir = "/com/chinacreator/common/taglib/template";
+	private static final String temp_dir = "/template";
 	
 	private static Configuration config = null;
 	
