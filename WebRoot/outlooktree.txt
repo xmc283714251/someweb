@@ -1,0 +1,9 @@
+﻿[
+	{id: "xtgl", text: "系统管理"},
+	{id: "jggl", text: "机构管理", pid: "xtgl"},
+	{id: "yhgl", text: "用户管理", pid: "xtgl" },
+	{ id: "jsgl", text: "角色管理",pid: "xtgl"},
+	{ id: "jsgl", text: "功能菜单",pid: "xtgl"},
+    {id: "qtgn", text: "其它功能"}
+	 		
+]

@@ -3,35 +3,10 @@
 <%@taglib prefix="some" uri="/someweb-tags"%>
 <div class="pageHeader">
 	<form id="searchform" rel="pagerForm" onsubmit="return navTabSearch(this);" action="<c:url value='/xtgl/toUserManagerPage.action'/>" method="post">
-		<div class="searchBar">
-			<table class="searchContent">
-				<tr>
-					<td>
-						用户名： 
-					</td>
-					<td>
-						<input type="text" name="userBean.username" value="${userBean.username }"/>
-					</td>
-					<td>
-						真实姓名： 
-					</td>
-					<td>
-						 <input type="text" name="userBean.realname" value="${userBean.realname }"/>
-					</td>
-					<td>
-						创建日期： 
-					</td>
-					<td>
-						 <input type="text" name="userBean.createdate" class="date" value="${userBean.createdate }"/>
-					</td>
-				</tr>
-			</table>
-			<div class="subBar">
-				<ul>
-					<li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
-					<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>
-				</ul>
-			</div>
+		<div class="pageFormContent">
+			<some:TextField id="username" label="用户名" name="username" required="true" isAlphanumeric="true"/>
+			<some:TextField id="realname" label="真实姓名" name="realname"/>
+			<some:Date id="createdate" label="创建时间" name="createdate"/>
 		</div>
 	</form>
 </div>

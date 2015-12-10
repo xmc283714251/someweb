@@ -49,33 +49,24 @@ public class LoginAction extends BaseAction
 	 */
 	public String login()
 	{
-		String sessionCode = (String) session.getAttribute(CommonConstant.VALIDATE_CODE);
-		if (sessionCode.equalsIgnoreCase(code))
+		LoginInfo loginInfo = loginBusiness.queryLoginInfoByUserNameAndPassword(username, password);
+		if (!StringUtils.isEmpty(username) && !StringUtils.isEmpty(password))
 		{
-			LoginInfo loginInfo = loginBusiness.queryLoginInfoByUserNameAndPassword(username, password);
-			if (!StringUtils.isEmpty(username) && !StringUtils.isEmpty(password))
+			//存放到当前回话中
+			if (loginInfo != null)
 			{
-				//存放到当前回话中
-				if (loginInfo != null)
-				{
-					ActionContextHelper.setLoginInfo(loginInfo);
-					return "loginSuccess";
-				}
-				else
-				{
-					errorMsg = "用户名或密码不正确";
-					return "loginOut";
-				}
+				ActionContextHelper.setLoginInfo(loginInfo);
+				return "loginSuccess";
 			}
 			else
 			{
-				errorMsg = "用户名或密码不能为空";
+				errorMsg = "用户名或密码不正确";
 				return "loginOut";
 			}
 		}
 		else
 		{
-			errorMsg = "验证码不正确或不能为空";
+			errorMsg = "用户名或密码不能为空";
 			return "loginOut";
 		}
 	}

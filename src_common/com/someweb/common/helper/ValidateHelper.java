@@ -1,6 +1,8 @@
 package com.someweb.common.helper;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -109,5 +111,27 @@ public final class ValidateHelper {
 		{
 			return false;
 		}
+	}
+	
+	/**
+	 * 验证时间字符串是否满足指定格式
+	 * @param datestr 时间字符串
+	 * @param format 验证的时间格式串 如：yyyy-MM-dd
+	 * @return boolean
+	 * @author 熊明春
+	 * @date 2015-12-10下午9:18:56
+	 */
+	public static boolean isValidDateFormat(String datestr, String format)
+	{
+		SimpleDateFormat formatter = new SimpleDateFormat(format);
+		try
+		{
+			Date date = formatter.parse(datestr);
+			return datestr.equals(formatter.format(date));
+		}
+		catch(Exception e)
+		{
+		}
+		return false;
 	}
 }

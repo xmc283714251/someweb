@@ -92,7 +92,7 @@ public class DictionaryCacheHellper
 			}
 			
 			// 初始化字典
-			String querysql = "select id, zdlb, zdmc, dm, mc, parent_dm, jc, isvalid, sn from td_common_dictionary where isvalid='1' order by sn,dm";
+			String querysql = "select id, zdlb, zdmc, dm, mc, parent_dm, descr, isvalid, sn from td_common_dictionary where isvalid='1' order by sn,dm";
 			List<SystemDictionaryBean> beanList = SQLExecutor.queryListWithDBName(SystemDictionaryBean.class, CommonConstant.DBNAME_COMMON, querysql);
 			
 			if (ValidateHelper.isNotEmptyCollection(beanList))
@@ -129,23 +129,6 @@ public class DictionaryCacheHellper
 	public static List<SystemDictionaryBean> getSystemDictionaryListByZdlb(String zdlb)
 	{
 		return dictionaryMap.get(zdlb);
-	}
-	
-	public static List<SystemDictionaryBean> getSystemDictionaryListByZdlbAndOnLevel(String zdlb)
-	{
-		List<SystemDictionaryBean> newlist = new ArrayList<SystemDictionaryBean>();
-		List<SystemDictionaryBean> list = dictionaryMap.get(zdlb);
-		if (ValidateHelper.isNotEmptyCollection(list))
-		{
-			for (SystemDictionaryBean bean : list)
-			{
-				if ("0".equals(bean.getParent_dm()))
-				{
-					newlist.add(bean);
-				}
-			}
-		}
-		return newlist;
 	}
 	
 	/**
@@ -215,7 +198,5 @@ public class DictionaryCacheHellper
 		}
 		return null;
 	}
-	
-	 
 	 
 }

@@ -30,7 +30,7 @@ public class JspPageFilter implements Filter
 		HttpServletResponse response = (HttpServletResponse)arg1;
 		LoginInfo loginInfo = ActionContextHelper.getLoginInfo();
 		String servletpath = request.getServletPath();
-		//登录也不拦截
+		//登录页不拦截
 		if (servletpath.equals("/index.jsp"))
 		{
 			chain.doFilter(arg0, arg1);

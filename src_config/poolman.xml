@@ -9,8 +9,8 @@
 		<driver>com.mysql.jdbc.Driver</driver>
 		 
 		<url>jdbc:mysql://localhost:3306/someweb?characterEncoding=utf8</url> 
-		<username>root</username>
-		<password></password>
+		<username>someweb</username>
+		<password>someweb</password>
 		  
 		<txIsolationLevel>READ_COMMITTED</txIsolationLevel>
 		<nativeResults>true</nativeResults>
@@ -29,7 +29,7 @@
 		<testWhileidle>true</testWhileidle>
 		<keygenerate>auto</keygenerate>
 		<maxWait>60</maxWait>
-		<validationQuery>select 1 from dual</validationQuery>
+		<validationQuery>select 1 </validationQuery>
 		<autoprimarykey>true</autoprimarykey>
 		<showsql>true</showsql>
 	</datasource>
