@@ -1,7 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sm" uri="/someweb-tags"%>
-<%@taglib prefix="s" uri="/struts-tags"%>
 <sm:view title="开发平台">
 <style type="text/css">
 	body{
@@ -9,7 +8,7 @@
     }    
     .header
     {
-        background:gray;
+        background:#B5CCE6;
     }
 	
 </style>
@@ -28,8 +27,7 @@
 	        <div class="mini-splitter" style="width:100%;height:100%;" borderStyle="border:0;">
 	            <div size="180" maxSize="250" minSize="100" showCollapseButton="true" style="border:0;">
 	                <!--OutlookTree-->
-	                <div id="leftTree" class="mini-outlooktree" url="<c:url value='/outlooktree.txt'/>" onnodeclick="onNodeSelect" textField="text" idField="id" parentField="pid">
-	                </div>
+	                <sm:outlooktree id="leftTree" url="/outlooktree.txt" idField="id" textField="text" parentField="pid"/>
 	            </div>
 	            <div showCollapseButton="false" style="border:0;">
 	                <!--Tabs-->

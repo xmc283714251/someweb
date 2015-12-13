@@ -2,9 +2,9 @@ package com.someweb.common.helper;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.log4j.Logger;
 
@@ -25,12 +25,12 @@ public class DictionaryCacheHellper
 	/**
 	 * 系统参数缓存
 	 */
-	private static Map<String, String> parameterMap = new HashMap<String, String>();
+	private static Map<String, String> parameterMap = new ConcurrentHashMap<String, String>();
 	
 	/**
 	 * 	数据字典
 	 */
-	private static Map<String, List<SystemDictionaryBean>> dictionaryMap = new HashMap<String,List<SystemDictionaryBean>>();
+	private static Map<String, List<SystemDictionaryBean>> dictionaryMap = new ConcurrentHashMap<String,List<SystemDictionaryBean>>();
 	
 	
 	/**

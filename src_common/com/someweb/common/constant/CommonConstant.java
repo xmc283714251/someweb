@@ -13,4 +13,13 @@ public final class CommonConstant
 	
 	//验证码字符
 	public static final String VALIDATE_CODE = "code";
+	
+	//文件上传允许的最大尺寸
+	public static final String SOMEWEB_MULTIPART_MAXSIZE = "someweb.multipart.maxSize"; 
+	
+	//上传文件临时存放目录
+	public static final String SOMEWEB_MULTIPART_SAVEDIR = "someweb.multipart.saveDir";
+	
+	//文件编码
+	public static final String SOMEWEB_I18N_ENCODING = "someweb.i18n.encoding";
 }

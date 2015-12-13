@@ -17,6 +17,42 @@
 		</attribute>
 	</tag>
 	<tag>
+		<name>outlooktree</name>
+		<tag-class>com.someweb.common.taglib.tag.OutLookTreeTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>url</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>onnodeclick</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>idField</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>textField</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>parentField</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<tag>
 		<name>Pagination</name>
 		<tag-class>com.someweb.common.taglib.tag.PaginationTag</tag-class>
 		<body-content>JSP</body-content>

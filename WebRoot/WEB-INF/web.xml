@@ -9,81 +9,31 @@
 	
 	<filter>
 		<filter-name>encodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<filter-class>com.someweb.common.filter.CharacterEncodingFilter</filter-class>
 		<init-param>
 			<param-name>encoding</param-name>
-			<param-value>utf-8</param-value>
+			<param-value>UTF-8</param-value>
 		</init-param>
 	</filter>
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
-	<!-- jsp页面拦截过滤 -->
-	<filter>
-		<filter-name>JspPageFilter</filter-name>
-		<filter-class>com.someweb.common.filter.JspPageFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>JspPageFilter</filter-name>
-		<url-pattern>*.jsp</url-pattern>
-	</filter-mapping>
-	
-	<!--  Struts2前端控制器 -->
-	<filter>
-		<filter-name>struts2</filter-name>
-		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>struts2</filter-name>
-		<url-pattern>*.action</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>struts2</filter-name>
-		<url-pattern>*.do</url-pattern>
-	</filter-mapping>
-
-	<filter>
-		<filter-name>struts-cleanup</filter-name>
-		<filter-class>org.apache.struts2.dispatcher.ActionContextCleanUp</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>struts-cleanup</filter-name>
-		<url-pattern>*.action</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>struts2</filter-name>
-		<url-pattern>*.do</url-pattern>
-	</filter-mapping>
-
-	<!-- 上下文启动监听 -->
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
-
-	<listener>
-		<listener-class>com.someweb.common.listener.CPSCommonListener</listener-class>
-	</listener>
-		
-	<listener>
-		<listener-class>com.someweb.common.listener.SessionCounterListener</listener-class>
-	</listener>
-	
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<!--Spring配置文件位置-->
-		<param-value>WEB-INF/config/application-task.xml</param-value>
-	</context-param>
-	
+	 
 	<servlet>
-		<servlet-name>validateCodeServlet</servlet-name>
-		<servlet-class>com.someweb.common.servlet.ValidateCodeServlet</servlet-class>
-	</servlet>	
-	<servlet-mapping>
-		<servlet-name>validateCodeServlet</servlet-name>
-		<url-pattern>*.image</url-pattern>
-	</servlet-mapping>
+  	    <servlet-name>SomeWebInterceptorServlet</servlet-name>
+  	    <servlet-class>com.someweb.common.servlet.SomeWebInterceptorServlet</servlet-class>
+  	    <load-on-startup>0</load-on-startup>
+  	    <init-param>
+  	        <param-name>configFilePath</param-name>
+  	        <param-value>/someweb.xml</param-value>
+  	    </init-param>
+  	</servlet>
+    <servlet-mapping>
+    	<servlet-name>SomeWebInterceptorServlet</servlet-name>
+    	<url-pattern>/business</url-pattern>
+  	</servlet-mapping>
+  	
 	
 	<!-- 异常信息处理 -->
 	<error-page>
@@ -99,10 +49,6 @@
 		<session-timeout>120</session-timeout>
 	</session-config>
 	
-	<welcome-file-list>
-		<welcome-file>/jsp/common/logout.jsp</welcome-file>
-	</welcome-file-list>
-
 	<jsp-config>
 		<taglib>
 			<taglib-uri>/someweb-tags</taglib-uri>

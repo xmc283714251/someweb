@@ -11,20 +11,23 @@ function clickValidateCode()
 
 function login()
 {
-	var username = $("#username").val();
-	var password = $("#password").val();
-	var code = $("#code").val();
-	if (username == "" || username == null)
-	{
-		mini.alert("用户名不能为空.");
-		return false;
-	}
-	else if (password == "" || password == null)
-	{
-		mini.alert("密码不能为空.");
-		return false;
-	}
-	$("#loginform").submit();
+	$("#loginform").ajaxSubmitForm({
+		controller:"loginController",
+		action:"login",
+		callback:function(loginInfo)
+		{
+			if (loginInfo != null)
+			{
+				alert(loginInfo.username);
+				window.location.href=contextPath + "/business?controller=loginController&action=toMain";
+			}
+			else
+			{
+				mini.alert("用户名或密码错误");
+			}
+		}
+	});
+	  
 }
 
 $(function(){
@@ -71,14 +74,14 @@ $(function(){
 					</tr>
 					<tr>
 						<td width="25%">用户名：</td>
-						<td><input type="text" id="username" value="${username }" name="username" size="20" class="login_input" maxlength="20"/></td>
+						<td><input type="text"  id="username" value="${username }" name="username" size="20" required="true" class="mini-textbox" maxlength="20"/></td>
 					</tr>
 					<tr>
 						<td colspan="2" height="10px">&nbsp;</td>
 					</tr>
 					<tr>
 						<td>密&nbsp;&nbsp;&nbsp;&nbsp;码：</td>
-						<td><input type="password" id="password" value="${password }" name="password" size="20" class="login_input" /></td>
+						<td><input type="password" id="password" value="${password }" name="password" size="20" required="true" class="mini-textbox" /></td>
 					</tr>
 					<tr>
 						<td colspan="2" height="10px">&nbsp;</td>
