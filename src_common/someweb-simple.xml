@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<somewebs>
+    <constant name="someweb.i18n.encoding" value="UTF-8" />
+	<constant name="someweb.ui.theme" value="blue2010" />
+	<constant name="someweb.multipart.maxSize" value="104857600"/> 
+	<constant name="someweb.multipart.saveDir" value="/temp"/>
+	
+	<global-results>
+		<result name="404" type="redirect">/theme/common/404.jsp</result>
+	</global-results>
+	
+	<businesses>
+	    <business id="businessid" class="com.test.HelloBusiness"></business>
+	</business>
+	
+	<controllers>
+	   <controller id="testController" class="com.someweb.test.action.TestController">
+	       <property name="setHelloBusiness" ref="businessid"/>
+	       <results>
+	           <result name="success">/pages/admin/login.jsp</result>
+	       </results>
+	   </controller>
+	</controllers>
+	
+	<include file="/someweb-test.xml"/>
+	<include file="/someweb-xtgl.xml"/>
+</somewebs>

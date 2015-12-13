@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT controllers (constant|controller|include)*>
+
+
+<!ELEMENT constant (#PCDATA)>
+<!ATTLIST constant
+    name CDATA #REQUIRED
+    value CDATA #REQUIRED
+>

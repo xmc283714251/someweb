@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<somewebs>
+    <businesses>
+        <business id="loginBusiness" class="com.someweb.xtgl.business.LoginBusiness"/>
+    </businesses>
+	<controllers>
+	    <controller id="loginController" class="com.someweb.xtgl.controller.LoginController">
+	       	<property name="loginBusiness" ref="loginBusiness"/>
+	       	<results>
+	       	     <result name="success">/main.jsp</result>
+	       	</results>
+	    </controller>
+	</controllers>
+</somewebs>
